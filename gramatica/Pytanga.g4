@@ -1,1 +1,1 @@
-grammar Pytanga
+grammar Pytanga;
