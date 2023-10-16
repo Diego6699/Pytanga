@@ -2,6 +2,8 @@ grammar Pytanga;
 
 start: program EOF;
 
+program: statement+;
+
 OPERADOR_LOGICO: 'and' | 'or' | 'not';
 OPERADOR_ARITMETRICO: '+' | '-' | '*' | '/';
 NUMERO_INTEIRO: [0-9]+;
