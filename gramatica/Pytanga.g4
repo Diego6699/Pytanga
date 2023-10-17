@@ -10,6 +10,12 @@ OPERADOR_LOGICO: 'and' | 'or' | 'not';
 OPERADOR_ARITMETRICO: '+' | '-' | '*' | '/';
 
 
+SOMA: '+';
+SUBTRACAO: '-';
+MULTIPLICACAO: '*';
+DIVISAO: '/';
+MODULO: '%';
+
 ASSIGN: '=';
 SOMA_IGUAL: '+=';
 SUBTRACAO_IGUAL: '-=';
