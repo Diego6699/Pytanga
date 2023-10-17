@@ -5,6 +5,19 @@ start: program EOF;
 program: statement+;
 
 
+
+ABRE_CHAVE: '{';
+FECHA_CHAVE: '}';
+ABRE_COLCHETE: '[';
+FECHA_COLCHETE: ']';
+ABRE_PARENTESE: '(';
+FECHA_PARENTESE: ')';
+PONTE_E_VIRGULA: ';';
+ASPAS_DUPLAS: '"';
+DOIS_PONTOS: ':';
+PONTO: '.';
+VIRGULA: ',';
+
 MENOR_QUE: '<';
 MAIOR_QUE: '>';
 MENOR_IGUAL: '<=';
