@@ -5,13 +5,16 @@ start: program EOF;
 program: statement+;
 
 
+MENOR_QUE: '<';
+MAIOR_QUE: '>';
+MENOR_IGUAL: '<=';
+MAIOR_IGUAL: '>=';
+IGUAL_IGUAL: '==';
+DIFERENTE: '!=';
 
 E_LOGICO: 'and';
 OU_LOGICO: 'or';
 NAO_LOGICO: 'not';
-
-OPERADOR_ARITMETRICO: '+' | '-' | '*' | '/';
-
 
 SOMA: '+';
 SUBTRACAO: '-';
