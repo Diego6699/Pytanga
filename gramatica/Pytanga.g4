@@ -6,7 +6,10 @@ program: statement+;
 
 
 
-OPERADOR_LOGICO: 'and' | 'or' | 'not';
+E_LOGICO: 'and';
+OU_LOGICO: 'or';
+NAO_LOGICO: 'not';
+
 OPERADOR_ARITMETRICO: '+' | '-' | '*' | '/';
 
 
