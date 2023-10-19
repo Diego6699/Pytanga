@@ -1,23 +1,10 @@
 grammar Pytanga;
 
-
-
-start: program EOF;
-
-program: declaracao+;
-
-declaracao: declaracao_variavel
-
-declaracao_variavel: declaracao_inteiro | declaracao_real
-
-
-tipo_variavel : INTEIRO | REAL | LISTA_EMCADEIADA | LISTA_DE_LISTA | CADEIA_LITERAL;
-
-INT: 'inteiro';
+INTEIRO: 'inteiro';
 REAL: 'flutuante';
-CADEIA_LITERAL: 'cadeia';
-LISTA_EMCADEIADA: 'lista';
-LISTA_DE_LISTA: 'matriz';
+CADEIA_CARACTERE: 'cadeia';
+LISTA_UNIFORME: 'lista';
+LISTA_DIVERSA: 'matriz';
 
 ABRE_CHAVE: '{';
 FECHA_CHAVE: '}';
@@ -54,10 +41,29 @@ SUBTRACAO_IGUAL: '-=';
 MULTIPLICACAO_IGUAL: '*=';
 DIVISAO_IGUAL: '/=';
 
-
-
 IDENTIFICADOR: [a-z]+ [A-Z]*;
-COMENTARIO: ASPAS_DUPLAS  ASPAS_DUPLAS;
+CARACTERE_LITERAL: [a-zA-Z0-9]+;
 NUMERO_INTEIRO: [0-9]+;
-NUMERO_REAL: [0-9]+'.'[0-9]*;
+NUMERO_REAL: [0-9]+ PONTO [0-9]*;
 WS: ('\n' | '\t' | '\r' | ' ')+ -> skip;
+
+comeco
+    : programa EOF
+    ;
+
+programa
+    : declaracao+
+    ;
+
+declaracao
+    : definicao_variavel
+    ;
+
+definicao_variavel
+    : variavel_inteiro
+    | variavel_real
+    | variavel_cadeia
+    ;
+variavel_inteiro: INTEIRO IDENTIFICADOR IGUAL NUMERO_INTEIRO PONTE_E_VIRGULA;
+variavel_real: REAL IDENTIFICADOR IGUAL NUMERO_REAL PONTE_E_VIRGULA;
+variavel_cadeia: CADEIA_CARACTERE IDENTIFICADOR IGUAL ASPAS_DUPLAS CARACTERE_LITERAL ASPAS_DUPLAS PONTE_E_VIRGULA;
