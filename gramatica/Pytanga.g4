@@ -41,11 +41,23 @@ SUBTRACAO_IGUAL: '-=';
 MULTIPLICACAO_IGUAL: '*=';
 DIVISAO_IGUAL: '/=';
 
-IDENTIFICADOR: [a-z]+ [A-Z]*;
-CARACTERE_LITERAL: [a-zA-Z0-9]+;
+CARACTERE_MINUSCULO: [a-z]+;
+CARACTERE_MAIUSCULO: [A-Z]+;
+CARACTERE_LITERAL: [a-zA-Z]+;
 NUMERO_INTEIRO: [0-9]+;
-NUMERO_REAL: [0-9]+ PONTO [0-9]*;
+NUMERO_REAL: [0-9]+ PONTO [0-9]+;
 WS: ('\n' | '\t' | '\r' | ' ')+ -> skip;
+
+
+//definicao de variavel
+identificador_variavel: CARACTERE_MINUSCULO CARACTERE_MAIUSCULO*;
+
+variavel_inteiro: INTEIRO definicao_variavel IGUAL NUMERO_INTEIRO PONTE_E_VIRGULA;
+variavel_real: REAL definicao_variavel IGUAL NUMERO_REAL PONTE_E_VIRGULA;
+variavel_cadeia: CADEIA_CARACTERE definicao_variavel IGUAL ASPAS_DUPLAS cadeia_literal ASPAS_DUPLAS PONTE_E_VIRGULA;
+
+//cadeia de caractere
+cadeia_literal: (CARACTERE_MINUSCULO | CARACTERE_MAIUSCULO | NUMERO_INTEIRO | NUMERO_REAL);
 
 comeco
     : programa EOF
@@ -64,6 +76,5 @@ definicao_variavel
     | variavel_real
     | variavel_cadeia
     ;
-variavel_inteiro: INTEIRO IDENTIFICADOR IGUAL NUMERO_INTEIRO PONTE_E_VIRGULA;
-variavel_real: REAL IDENTIFICADOR IGUAL NUMERO_REAL PONTE_E_VIRGULA;
-variavel_cadeia: CADEIA_CARACTERE IDENTIFICADOR IGUAL ASPAS_DUPLAS CARACTERE_LITERAL ASPAS_DUPLAS PONTE_E_VIRGULA;
+
+
