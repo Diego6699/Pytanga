@@ -72,9 +72,9 @@ declaracao
     ;
 
 definicao_variavel
-    : variavel_inteiro
-    | variavel_real
-    | variavel_cadeia
+    : CARACTERE_MINUSCULO
+    | CARACTERE_MINUSCULO CARACTERE_MAIUSCULO
+    | definicao_variavel
     ;
 
 
