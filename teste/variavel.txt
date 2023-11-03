@@ -1,3 +1,0 @@
-inteiro aNA = 12;
-flutuante boB = 12.12;
-cadeia fruta = "b4n4n4";
