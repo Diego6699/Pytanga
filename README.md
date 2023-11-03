@@ -1,13 +1,12 @@
 
 <!-- Logo/Banner do Projeto -->
-<p align="center">
+<p style="text-align:center;">
   <img src="https://github.com/ccofg-labs/Pytanga/blob/main/pytanga%20logo/pytanga-logo%20(8).png?raw=true" alt="Logo" width="auto" height="150">
   <h1 align="center">Compilador Pytanga (Alpha 1.0)</h1>
   
-  <p align="center">
+  <p style="text-align:center;">
     Projeto Final Curso Ciência da Computação - Compiladores 
   </p>
-</p>
 <br />
 <!-- Shields do Projeto -->
 
@@ -27,9 +26,11 @@
 
 - instale o python 3
 - instale o antlr4 tools
+````bash
+pip install antlr4-tools
+````
 - instale o antlr4 python3 runtime
 
 ```bash
-pip install antlr4-tools
 pip install antlr4-python3-runtime
 ```
