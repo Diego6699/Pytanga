@@ -1,0 +1,4 @@
+// Exemplo de declaração e atribuição de variável real
+real pi = 3.14;
+real b = 2.5;
+real c = a + b;
