@@ -1,5 +1,3 @@
-grammar Pytanga;
-
 // Definição de tokens
 INTEIRO: 'inteiro';
 FLUTUANTE: 'flutuante';
@@ -119,4 +117,3 @@ typeDeclaration: 'inteiro'
               | 'matriz<car>';
 
 comentario: COMENTARIO;
-

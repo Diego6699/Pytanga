@@ -1,0 +1,18 @@
+inteiro x = 5;
+flutuante y = 3.14;
+car mensagem = "Olá, mundo!";
+lista numeros = [1, 2, 3, 4];
+matriz matrizNumeros = [[1, 2], [3, 4]];
+
+se x > 0 entao {
+    y = 15;
+    mensagem = "X é positivo!";
+} senao {
+    mensagem = "X não é positivo.";
+}
+
+enquanto y <= 5 facca {
+    y = 2;
+}
+
+// Comentário: Isso é um comentário.
