@@ -1,8 +1,9 @@
 grammar Pytanga;
 
+// Definição de tokens
 INTEIRO: 'inteiro';
-REAL: 'flutuante';
-CADEIA_CARACTERE: 'cadeia';
+FLUTUANTE: 'flutuante';
+CAR: 'car';
 LISTA_UNIFORME: 'lista';
 LISTA_DIVERSA: 'matriz';
 
@@ -12,7 +13,7 @@ ABRE_COLCHETE: '[';
 FECHA_COLCHETE: ']';
 ABRE_PARENTESE: '(';
 FECHA_PARENTESE: ')';
-PONTE_E_VIRGULA: ';';
+PONTO_E_VIRGULA: ';';
 ASPAS_DUPLAS: '"';
 DOIS_PONTOS: ':';
 PONTO: '.';
@@ -41,40 +42,81 @@ SUBTRACAO_IGUAL: '-=';
 MULTIPLICACAO_IGUAL: '*=';
 DIVISAO_IGUAL: '/=';
 
-CARACTERE_MINUSCULO: [a-z]+;
-CARACTERE_MAIUSCULO: [A-Z]+;
-CARACTERE_LITERAL: [a-zA-Z]+;
 NUMERO_INTEIRO: [0-9]+;
 NUMERO_REAL: [0-9]+ PONTO [0-9]+;
 WS: ('\n' | '\t' | '\r' | ' ')+ -> skip;
+COMENTARIO: '//' ~[\r\n]* | '/*' .*? '*/';
+IDENTIFICADOR: [a-zA-Z_] [a-zA-Z_0-9]*;
 
+// Adicionando uma regra de inicialização
+programa: comando* EOF;
 
-//definicao de variavel
-identificador_variavel: CARACTERE_MINUSCULO CARACTERE_MAIUSCULO*;
+// Regras de comando
+comando: declaracao_variavel
+       | atribuicao PONTO_E_VIRGULA
+       | condicional
+       | loop
+       | comentario;
 
-variavel_inteiro: INTEIRO definicao_variavel IGUAL NUMERO_INTEIRO PONTE_E_VIRGULA;
-variavel_real: REAL definicao_variavel IGUAL NUMERO_REAL PONTE_E_VIRGULA;
-variavel_cadeia: CADEIA_CARACTERE definicao_variavel IGUAL ASPAS_DUPLAS cadeia_literal ASPAS_DUPLAS PONTE_E_VIRGULA;
+matriz: ABRE_COLCHETE (lista (VIRGULA lista)*)? FECHA_COLCHETE;
 
-//cadeia de caractere
-cadeia_literal: (CARACTERE_MINUSCULO | CARACTERE_MAIUSCULO | NUMERO_INTEIRO | NUMERO_REAL);
+declaracao_variavel: (INTEIRO | FLUTUANTE | CAR | LISTA_UNIFORME | LISTA_DIVERSA)
+                   IDENTIFICADOR IGUAL (expressao | lista | matriz) PONTO_E_VIRGULA;
 
-comeco
-    : programa EOF
-    ;
+lista: ABRE_COLCHETE (expressao (VIRGULA expressao)*)? FECHA_COLCHETE;
 
-programa
-    : declaracao+
-    ;
+atribuicao: IDENTIFICADOR (SOMA_IGUAL | SUBTRACAO_IGUAL | MULTIPLICACAO_IGUAL | DIVISAO_IGUAL)? IGUAL expressao PONTO_E_VIRGULA;
 
-declaracao
-    : definicao_variavel
-    ;
+condicional: 'se' expressao_condicional 'entao' bloco ('senao' bloco)?;
 
-definicao_variavel
-    : CARACTERE_MINUSCULO
-    | CARACTERE_MINUSCULO CARACTERE_MAIUSCULO
-    | definicao_variavel
-    ;
+loop: 'enquanto' expressao_condicional 'facca' bloco;
 
+declaracao_sem_ponto_e_virgula: (declaracao_variavel | atribuicao) PONTO_E_VIRGULA?;
+
+bloco: ABRE_CHAVE declaracao_sem_ponto_e_virgula* FECHA_CHAVE;
+
+expressao_condicional: (IDENTIFICADOR | NUMERO_INTEIRO | NUMERO_REAL)
+                    (MENOR_QUE | MAIOR_QUE | MENOR_IGUAL | MAIOR_IGUAL | IGUAL_IGUAL | DIFERENTE | NAO_LOGICO)
+                    (IDENTIFICADOR | NUMERO_INTEIRO | NUMERO_REAL | IDENTIFICADOR IGUAL expressao | IDENTIFICADOR SOMA_IGUAL expressao);
+
+expressao: additiveExpression
+         | NUMERO_INTEIRO
+         | NUMERO_REAL
+         | STRING_LITERAL
+         | IDENTIFICADOR
+         | PAR_OPEN expressao PAR_CLOSE;
+
+additiveExpression: multiplicativeExpression (SOMA | SUBTRACAO right=multiplicativeExpression)*;
+
+multiplicativeExpression: unaryExpression (MULTIPLICACAO right=unaryExpression | DIVISAO right=unaryExpression)*;
+
+unaryExpression: primaryExpression | (SOMA | SUBTRACAO | NAO_LOGICO) unaryExpression;
+
+primaryExpression: IDENTIFICADOR
+                | NUMERO_INTEIRO
+                | NUMERO_REAL
+                | STRING_LITERAL
+                | PAR_OPEN expressao PAR_CLOSE;
+
+STRING_LITERAL: '"' (~['"\r\n])* '"';
+
+argumentList: (expressao (VIRGULA expressao)*)?;
+
+parameterList: (parameter (VIRGULA parameter)*)?;
+
+parameter: typeDeclaration IDENTIFICADOR;
+
+typeDeclaration: 'inteiro'
+              | 'flutuante'
+              | 'car'
+              | 'lista'
+              | 'matriz'
+              | 'lista<inteiro>'
+              | 'lista<flutuante>'
+              | 'lista<car>'
+              | 'matriz<inteiro>'
+              | 'matriz<flutuante>'
+              | 'matriz<car>';
+
+comentario: COMENTARIO;
 
